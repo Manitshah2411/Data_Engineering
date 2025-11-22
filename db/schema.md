@@ -1,54 +1,81 @@
 # Tables
 
-    Customer
-    Orders
-    Products
-    Order_items
+- Customers
+- Orders
+- Products
+- Order_Items
 
-## Table 1 : Customer
+---
 
-    customer_id:    unique identifier
-    first_name:     firstname of the customer
-    last_name:      lastname of the customer
-    email:          email of the customer
-    age:            age of the customer
-    country:        customer's country
-    active:         Is the customer active or not
-    created_on:     customer signed up on
+## Table 1: Customers (Logical Schema)
 
-### Relationships (Customer)
+### Raw Columns (customers)
 
-    customer -> ONE TO MANY (orders)
+- customer_id (PK)
+- customer_unique_id
+- customer_zip_code_prefix
+- customer_city
+- customer_state
 
-## Table 2 : Products
+### Relationships (customers)
 
-    product_id:     unique identifier
-    name:           name of the product
-    category:       product category
-    brand:          product's brand
+- customer → ONE TO MANY → orders
 
-### Relationships (Products)
+---
 
-    product -> ONE TO MANY (order_items)
+## Table 2: Products (Logical Schema)
 
-## Table 3 : Orders
+### Raw Columns (products)
 
-    order_id:       unique identifier
-    customer_id:    (Foreign key, References Customer(customer_id))
-    order_date:     Order placed on
-    ship_date:      Shipped on
-    delivery_date:  Delivered on
-    order_status:   Current stage of the order
+- product_id (PK)
+- product_category_name
+- product_name_lenght
+- product_description_lenght
+- product_photos_qty
+- product_weight_g
+- product_length_cm
+- product_height_cm
+- product_width_cm
+
+### Relationships (products)
+
+- product → ONE TO MANY → order_items
+
+---
+
+## Table 3: Orders (Logical Schema)
+
+### Raw Columns (Orders)
+
+- order_id (PK)
+- customer_id (FK → customers.customer_id)
+- order_status
+- order_purchase_timestamp
+- order_approved_at
+- order_delivered_carrier_date
+- order_delivered_customer_date
+- order_estimated_delivery_date
 
 ### Relationships (Orders)
 
-    orders -> ONE TO MANY (order_items)
-    
-## Table 4 : Order_items
+- orders → MANY TO ONE → customers
+- orders → ONE TO MANY → order_items
 
-    order_item_id: unique identifier
-    order_id : (Foreign Key, References Orders(order_id))
-    product_id : (Foreign Key, References Products(product_id))
-    quantity: Quantity of the unit
-    unit_price: Price of the unit
-    sale : quantity * unit_price
+---
+
+## Table 4: Order_Items (Logical Schema)
+
+### Raw Columns (Order_Items)
+
+- order_item_id (PK)
+- order_id (FK → orders.order_id)
+- product_id (FK → products.product_id)
+- seller_id
+- shipping_limit_date
+- price
+- freight_value
+
+### Relationships (Order_items)
+
+- order_items → MANY TO ONE → orders
+- order_items → MANY TO ONE → products
