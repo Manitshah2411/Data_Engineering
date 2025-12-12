@@ -8,9 +8,8 @@
 
 | Column                   |          Type |   Key  | Nullable | Description                                                 |
 | ------------------------ | ------------: | :----: | :------: | ----------------------------------------------------------- |
-| customer_unique_id       |   VARCHAR(36) | **PK** |  **NO**  | Stable customer identifier (one row per real person)        |
-| customer_id              |   VARCHAR(32) |        |    NO    | Platform snapshot id (one snapshot per customer-row in raw) |
-| customer_zip_code_prefix |   VARCHAR(10) |        |    YES   | Zip / postcode (string to preserve leading zeros)           |
+| customer_id              |   VARCHAR(36) | **PK** |  **NO**  | Stable customer identifier (one row per real person)        |
+| customer_unqiue_id       |   VARCHAR(32) |        |    NO    | Platform snapshot id (one snapshot per customer-row in raw) |
 | customer_city            |  VARCHAR(100) |        |    YES   | City name                                                   |
 | customer_state           |    VARCHAR(8) |        |    YES   | State / region code                                         |
 | first_order_date         |          DATE |        |    YES   | Date of first order (DATE, no time)                         |
