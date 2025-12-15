@@ -30,7 +30,7 @@ def get_engine(echo: bool = False):
     # they are only called when the fulltime waiters are not free.
     # They are sent back once they serve
     
-        echo=echo # Default is true so no logging until set True
+        echo=echo # Default is False so no logging until set True
     )
     
     return engine

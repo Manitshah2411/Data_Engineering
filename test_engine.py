@@ -15,5 +15,27 @@ def test_engine():
         print()
     print("Testing done!!!")    
     
+    
+def tables_schema_existence():
+    engine = get_engine(echo=False)
+    
+    with engine.connect() as conn:
+        result = conn.execute(text("""
+        SELECT schema_name 
+        FROM information_schema.schemata
+        WHERE schema_name = 'warehouse';                           
+        """))
+        
+        print(result.fetchall())
+        
+        result1 = conn.execute(text("""
+        SELECT table_name
+        FROM information_schema.tables
+        WHERE table_schema = 'warehouse'                    
+        """))
+        
+        print(result1.fetchall())
+        
 if __name__ == "__main__":
     test_engine()    
+    tables_schema_existence()
