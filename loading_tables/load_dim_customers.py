@@ -1,6 +1,7 @@
 from src.loaders import append_via_sqlalchemy
 import pandas as pd
 from src.utils import log
+from validators.val_customers import validate_customers
 
 def load_customers():
     df = pd.read_csv('data/cleaned/customers.csv')
@@ -10,8 +11,10 @@ def load_customers():
     df['first_order_date'] = pd.to_datetime(df['first_order_date']).dt.date
     df['last_order_date'] = pd.to_datetime(df['last_order_date']).dt.date
     df = df.drop_duplicates(subset=['customer_unique_id'])
+    
         
     print(type(df.loc[0,'last_order_date'])) # casting done perfectly
+    validate_customers(df)
     
     # loading the table 
     append_via_sqlalchemy(
