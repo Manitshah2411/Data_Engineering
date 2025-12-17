@@ -18,5 +18,4 @@ JOIN warehouse.fact_order_items AS oi
 ON oi.order_id = o.order_id
 GROUP BY  o.customer_unique_id;
 
-
-
+GRANT INSERT, SELECT, UPDATE, TRUNCATE ON TABLE warehouse.fact_customer_lifecycle TO manitkalpeshshah;
