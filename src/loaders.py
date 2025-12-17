@@ -24,7 +24,7 @@ def append_via_sqlalchemy(
     
     log.info(f"Loading {len(df)} rows into {schema}.{table_name}...")
     
-    # The transaction block, This where the actual connection begins
+    # The transaction block
     with engine.begin() as conn:
         df.to_sql(
             name=table_name, # Name of the table in which it is needed to be appended
