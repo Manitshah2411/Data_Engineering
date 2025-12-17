@@ -6,7 +6,7 @@ def daily_sales_etl():
     TRUNCATE TABLE warehouse.fact_daily_sales;
     
     INSERT INTO warehouse.fact_daily_sales
-    SELECT 
+    SELECT
         DATE_TRUNC('day',o.order_purchase_timestamp) AS sales_date,
         SUM(fo.price) AS total_revenue,
         COUNT(DISTINCT o.order_id) AS total_order,
