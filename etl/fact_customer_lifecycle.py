@@ -13,8 +13,6 @@ config = get_pipeline_config(PIPELINE_NAME)
 run_id = start_pipeline(PIPELINE_NAME)
 engine = get_engine()
 
-print(config,run_id)
-
 try:
     with engine.begin() as conn:
         if config['truncate_before_load']:
