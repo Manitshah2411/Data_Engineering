@@ -46,11 +46,11 @@ try:
                          """))
             rows_processed = result.rowcount
             
-            end_pipeline_run(
-                run_id=run_id,
-                status='SUCCESS',
-                rows_processed=rows_processed
-            )
+        end_pipeline_run(
+            run_id=run_id,
+            status='SUCCESS',
+            rows_processed=rows_processed
+        )
         
 except Exception as e:
     log.info('Pipeline failed!!!')
