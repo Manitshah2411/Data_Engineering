@@ -70,7 +70,7 @@ def start_pipeline(pipeline_name: str, watermark_used=None) -> int:
     
     # returning run_id is auto-generated in postgres which is returned and will be used in python
     
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         run_id = conn.execute(sql,{
             "pipeline_name" : pipeline_name,
             "watermark_used" : watermark_used
@@ -107,7 +107,7 @@ def end_pipeline_run(run_id: int, status: str, rows_processed: int=None, error_m
     Marks the pipeline as SUCCESS or FAIL after a run.
     """
     
-    if status not in("SUCCESS","FAIL"):
+    if status not in("SUCCESS","FAILED"):
         raise ValueError("Status must be SUCCESS or FAIL")
     
     sql = text("""
@@ -120,7 +120,7 @@ def end_pipeline_run(run_id: int, status: str, rows_processed: int=None, error_m
                 WHERE run_id = :run_id
                """)
     
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         conn.execute(sql, {
             "run_id" : run_id,
             "status" : status,
