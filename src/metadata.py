@@ -92,17 +92,17 @@ def get_last_successful_watermark(pipeline_name: str):
     sql = text("""
                SELECT MAX(watermark_used)
                FROM meta.etl_runs
-               WHERE pipline_name = :pipeline_name
+               WHERE pipeline_name = :pipeline_name
                 AND status = 'SUCCESS'
                """)
     
     with engine.connect() as conn:
-        watermark = conn.execute(sql, {"pipline_name": pipeline_name}).scalar
+        watermark = conn.execute(sql, {"pipeline_name": pipeline_name}).scalar()
         
     return watermark
 
 
-def end_pipeline_run(run_id: int, status: str, rows_processed: int=None, error_message: str=None):
+def end_pipeline_run(run_id: int, status: str, rows_processed: int=None, error_message: str=None, watermark_used = None):
     """
     Marks the pipeline as SUCCESS or FAIL after a run.
     """
@@ -116,7 +116,8 @@ def end_pipeline_run(run_id: int, status: str, rows_processed: int=None, error_m
                     status = :status,
                     end_time = NOW(),
                     rows_processed = :rows_processed,
-                    error_message = :error_message
+                    error_message = :error_message,
+                    watermark_used = :watermark_used
                 WHERE run_id = :run_id
                """)
     
@@ -125,7 +126,8 @@ def end_pipeline_run(run_id: int, status: str, rows_processed: int=None, error_m
             "run_id" : run_id,
             "status" : status,
             "rows_processed" : rows_processed,
-            "error_message" :error_message
+            "error_message" :error_message,
+            "watermark_used" : watermark_used
         })
         
     log.info(f"Pipeline with run {run_id} ended with status {status}")
