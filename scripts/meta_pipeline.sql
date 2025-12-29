@@ -43,3 +43,9 @@ CREATE UNIQUE INDEX uq_pipeline_running
 ON meta.etl_runs (pipeline_name)
 WHERE status = 'IN_PROGRESS';
 
+GRANT USAGE ON SCHEMA meta TO manitkalpeshshah;
+GRANT ALL PRIVILEGES ON meta.etl_runs TO manitkalpeshshah;
+GRANT ALL PRIVILEGES ON meta.config TO manitkalpeshshah;
+ALTER DEFAULT PRIVILEGES IN SCHEMA meta
+GRANT SELECT, INSERT, UPDATE ON TABLES TO manitkalpeshshah;
+GRANT USAGE ON ALL SEQUENCES IN SCHEMA meta TO manitkalpeshshah;
