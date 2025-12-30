@@ -61,7 +61,7 @@ try:
                 JOIN warehouse.dim_customers AS c
                 ON c.customer_unique_id = o.customer_unique_id
                 WHERE :last_watermark IS NULL
-                OR o.order_purchase_timestamp > :last_watermark
+                OR DATE_TRUNC('day', o.order_purchase_timestamp) >= DATE_TRUNC('day', last_watermark)
                 GROUP BY DATE_TRUNC('day',o.order_purchase_timestamp)
                 ORDER BY SUM(price) DESC;
                                 """)
@@ -78,10 +78,7 @@ try:
         
         new_watermark = conn.execute(watermark,{"last_watermark":last_watermark}).scalar()
         
-        if new_watermark is None:
-            final_watermark = last_watermark
-        else:
-            final_watermark = new_watermark
+        final_watermark = new_watermark or last_watermark
         
         rows_processed = result.rowcount
             
