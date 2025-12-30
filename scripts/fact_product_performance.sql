@@ -5,7 +5,7 @@ SELECT
 	p.product_category_name,
 	COUNT(DISTINCT o.order_id) AS total_units_sold,
 	SUM(oi.price) AS total_revenue,
-	SUM(oi.price) / COUNT(DISTINCT o.order_id) AS avg_selling_price,
+	ROUND(SUM(oi.price) / COUNT(DISTINCT o.order_id),2) AS avg_selling_price,
 	MIN(o.order_purchase_timestamp) AS first_sold_date,
 	MAX(o.order_purchase_timestamp) AS last_sold_date
 FROM warehouse.fact_order_items AS oi
@@ -18,4 +18,8 @@ GROUP BY p.product_id,
 
 
 GRANT ALL PRIVILEGES ON TABLE warehouse.fact_product_performance TO manitkalpeshshah;
+
+ALTER TABLE warehouse.fact_product_performance
+ADD CONSTRAINT pk_fact_product_performance
+PRIMARY KEY (product_id);
 
