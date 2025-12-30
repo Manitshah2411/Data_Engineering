@@ -14,3 +14,7 @@ ON p.product_id = oi.product_id
 GROUP BY p.product_category_name;
 
 GRANT ALL PRIVILEGES ON TABLE warehouse.fact_category_performance TO manitkalpeshshah;
+
+ALTER TABLE warehouse.fact_category_performance
+ADD CONSTRAINT pk_product_category_name
+PRIMARY KEY (product_category_name);
