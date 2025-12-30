@@ -61,7 +61,8 @@ try:
                     DO UPDATE SET 
                         total_units_sold = fpp.total_units_sold + EXCLUDED.total_units_sold,
                         total_revenue = fpp.total_revenue + EXCLUDED.total_revenue,
-                        avg_selling_price = fpp.avg_selling_price + EXCLUDED.avg_selling_price,
+                        avg_selling_price = (fpp.avg_selling_price + EXCLUDED.avg_selling_price) /
+                                    (fpp.total_revenue + EXCLUDED.total_revenue),
                         first_sold_date = LEAST(fpp.first_sold_date,EXCLUDED.first_sold_date),
                         last_sold_date = GREATEST(fpp.last_sold_date,EXCLUDED.last_sold_date);
                                     """)
