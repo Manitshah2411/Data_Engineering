@@ -13,3 +13,6 @@ VALUES('fact_product_performance','warehouse','fact_product_performance','FULL',
 INSERT INTO meta.config(pipeline_name,target_schema,target_table,load_type,truncate_before_load,allow_updates,is_active)
 VALUES('sale_performance','warehouse','sale_performance','FULL',TRUE,FALSE,TRUE);
 
+INSERT INTO meta.config(pipeline_name,target_schema,target_table,load_type,truncate_before_load,allow_updates,is_active)
+VALUES('customers_upsert','warehouse','dim_customers','FULL',TRUE,FALSE,TRUE)
+

@@ -17,3 +17,7 @@ GROUP BY oi.seller_id
 ORDER BY COUNT(DISTINCT o.order_id) DESC;
 
 GRANT ALL PRIVILEGES ON TABLE warehouse.sale_performance TO manitkalpeshshah;
+
+ALTER TABLE warehouse.sale_performance
+ADD CONSTRAINT pk_seller_id
+PRIMARY KEY(seller_id)
