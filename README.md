@@ -1,4 +1,4 @@
-# Enterprise-Style Metadata-Driven Data Warehouse (PostgreSQL + Python)
+# Metadata-Driven Data Warehouse (PostgreSQL + Python)
 
 ## 📌 Project Overview
 
